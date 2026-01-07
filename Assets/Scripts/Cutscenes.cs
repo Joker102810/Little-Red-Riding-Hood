@@ -52,12 +52,6 @@ public class Cutscenes : MonoBehaviour
         yield return new WaitUntil(() => !dialogueManager.isMotherMoving);
     }
 
-    IEnumerator LittleRedRidingHood()
-    {
-        dialogueManager.StartLittleRedRidingHoodMoving();
-        yield return new WaitUntil(() => !dialogueManager.isLittleRedRidingHoodMoving);
-    }
-
     IEnumerator Wolf()
     {
         dialogueManager.StartWolfMoving();

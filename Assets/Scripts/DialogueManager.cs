@@ -13,8 +13,6 @@ public class DialogueManager : MonoBehaviour
     [HideInInspector]
     public bool isMotherMoving;
     [HideInInspector]
-    public bool isLittleRedRidingHoodMoving;
-    [HideInInspector]
     public bool isWolfMoving;
     [HideInInspector]
     public bool isLumberjackMoving;
@@ -22,13 +20,11 @@ public class DialogueManager : MonoBehaviour
     public bool isGrandmotherMoving;
 
     private bool motherAtWaypoint;
-    private bool littleRedRidingHoodAtWaypoint;
     private bool wolfAtWaypoint;
     private bool lumberjackAtWaypoint;
     private bool grandmotherAtWaypoint;
 
     private int motherWaypointIndex;
-    private int littleRedRidingHoodWaypointIndex;
     private int wolfWaypointIndex;
     private int lumberjackWaypointIndex;
     private int grandmotherWaypointIndex;
@@ -37,11 +33,6 @@ public class DialogueManager : MonoBehaviour
     public Transform mother;
     public Animator motherAnim;
     public List<Transform> motherWaypoints = new List<Transform>();
-
-    [Header("Little Red Riding Hood")]
-    public Transform littleRedRidingHood;
-    public Animator littleRedRidingHoodAnim;
-    public List<Transform> littleRedRidingHoodWaypoints = new List<Transform>();
 
     [Header("Wolf")]
     public Transform wolf;
@@ -61,7 +52,6 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         motherAnim = GetComponentInChildren<Animator>();
-        littleRedRidingHoodAnim = littleRedRidingHood.GetComponent<Animator>();
         wolfAnim = GetComponentInChildren<Animator>();
         lumberjackAnim = GetComponentInChildren<Animator>();
         grandmotherAnim = GetComponentInChildren<Animator>();
@@ -69,16 +59,11 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-        isMoving = (isMotherMoving || isLittleRedRidingHoodMoving || isWolfMoving || isLumberjackMoving || isGrandmotherMoving);
+        isMoving = (isMotherMoving || isWolfMoving || isLumberjackMoving || isGrandmotherMoving);
 
         if (isMotherMoving)
         {
             isMotherMoving = MoveTowardsWaypoint(mother, motherWaypoints, ref motherWaypointIndex, ref motherAtWaypoint, ref isMotherMoving, 1);
-        }
-
-        if (isLittleRedRidingHoodMoving)
-        {
-            isLittleRedRidingHoodMoving = MoveTowardsWaypoint(littleRedRidingHood, littleRedRidingHoodWaypoints, ref littleRedRidingHoodWaypointIndex, ref littleRedRidingHoodAtWaypoint, ref isLittleRedRidingHoodMoving, 1);
         }
 
         if (isWolfMoving)
@@ -117,14 +102,7 @@ public class DialogueManager : MonoBehaviour
             StartMoving(ref isMotherMoving);
         }
     }
-    public void StartLittleRedRidingHoodMoving()
-    {
-        if (littleRedRidingHoodWaypointIndex < littleRedRidingHoodWaypoints.Count)
-        {
-            littleRedRidingHoodAtWaypoint = false;
-            StartMoving(ref isLittleRedRidingHoodMoving);
-        }
-    }
+
     public void StartWolfMoving()
     {
         if (wolfWaypointIndex < wolfWaypoints.Count)
